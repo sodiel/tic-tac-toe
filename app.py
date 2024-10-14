@@ -24,6 +24,14 @@ class TicTacToe:
 
 
 
+    
+
+    def get_winning_combination(self):
+        for combo in self.winning_combinations:
+            if self.board[combo[0]] == self.board[combo[1]] == self.board[combo[2]] != ' ':
+                return combo
+        return None
+
 @app.route("/")
 def index():
     return render_template("index.html")
