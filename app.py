@@ -5,12 +5,24 @@ app = Flask(__name__)
 class TicTacToe:
     def __init__(self):
         self.board = [' ']*9
+        self.current_player = "X"
         self.winning_combinations = [
             (0, 1, 2), (3, 4, 5), (6, 7, 8), # Строки
             (0, 3, 6), (1, 4, 7), (2, 5, 8), # Столбцы
             (0, 4, 8), (2, 4, 6)             # Диагональ
         ]
     
+    def make_move(self, position):
+        if self.board[position] == ' ':
+            self.board == self.current_player
+            if self.current_player == "X":
+                self.current_player = "0"
+            else:
+                 self.current_player = "X"
+            return True
+        return False
+
+
 
 @app.route("/")
 def index():
