@@ -20,7 +20,7 @@ class TicTacToe:
         if self.board[position] == ' ':
             self.board[position] = self.current_player
             if self.current_player == "X":
-                self.current_player = "0"
+                self.current_player = "O"
             else:
                  self.current_player = "X"
             return True
@@ -49,12 +49,31 @@ class TicTacToe:
         self.board = [' ']*9
 
 
-    game = TicTacToe()
+game = TicTacToe()
 
 
 @app.route("/")
 def index():
     return render_template("index.html", board=game.board)
     
+
+@app.route("/make_move", methods=["POST"])
+def make_move():
+    data = request.get_json()
+    position = data['position']
+    if game.make_move(position):
+        winner = game.check_winner()
+        winning_combination = game.get_winning_combination()
+        return jsonify({"status": "success", "winner": winner, "board": game.board, "winning_combination": winning_combination})
+    else:
+        return jsonify({"status": "error", "message": "Invalid move"})
+
+
+@app.route("/restart", methods=["POST"])
+def clear():
+    game.reset_board()
+    return jsonify({"status": "success"})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
