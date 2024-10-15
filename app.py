@@ -42,11 +42,19 @@ class TicTacToe:
             if self.board[combo[0]] == self.board[combo[1]] == self.board[combo[2]] != ' ':
                 return combo
         return None
+
     
+
+    def reset_board(self):
+        self.board = [' ']*9
+
+
+    game = TicTacToe()
+
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", board=game.board)
     
 if __name__ == '__main__':
     app.run(debug=True)
