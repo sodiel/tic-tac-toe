@@ -27,7 +27,22 @@ class TicTacToe:
         return False
 
 
+    def check_winner(self):
+        for combo in self.winning_combinations:
+            if self.board[combo[0]] == self.board[combo[1]] == self.board[combo[2]] != ' ':
+                return self.board[combo[0]]
+        if ' ' not in self.board:
+            return "Ничья"
+        return None
+    
 
+
+    def get_winning_combination(self):
+        for combo in self.winning_combinations:
+            if self.board[combo[0]] == self.board[combo[1]] == self.board[combo[2]] != ' ':
+                return combo
+        return None
+    
 
 @app.route("/")
 def index():
